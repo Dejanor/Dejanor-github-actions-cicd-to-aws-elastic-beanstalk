@@ -2,10 +2,10 @@ name: Docker Image CI
 
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ["Create Eb application with terraform"]
-    types:
-      - completed
+  #workflow_run:
+    #workflows: ["Create Eb application with terraform"]
+    #types:
+      #- completed
 env:
   namespace: 'janortop5'
   repository: 'winichfarms-website'
