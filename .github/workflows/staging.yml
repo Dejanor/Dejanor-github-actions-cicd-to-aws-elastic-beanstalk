@@ -2,10 +2,10 @@ name: Deploy to Dev
 
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ["Docker Image CI"]
-    types:
-      - completed
+  #workflow_run:
+    #workflows: ["Docker Image CI"]
+    #types:
+      #- completed
 
 jobs:
   deploy-to-staging-env:
