@@ -1,0 +1,40 @@
+branch-defaults:
+  main:
+    environment: winichfarms-website
+deploy:
+  artifact: docker-compose.yml
+environment-defaults:
+  Winichfarms-website-environment:
+    branch: null
+    repository: null
+  winichfarms:
+    branch: null
+    repository: null
+  winichfarms-environment:
+    branch: null
+    repository: null
+  winichfarms-website:
+    branch: null
+    repository: null
+  winichfarms-website-environment:
+    branch: null
+    repository: null
+  winichwebsite:
+    branch: null
+    repository: null
+global:
+  application_name: winichfarms website
+  default_ec2_keyname: emmanuel-winich
+  default_platform: Docker
+  default_region: eu-west-2
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  sc: git
+  workspace_type: Application
+option_settings:
+- namespace: aws:elasticbeanstalk:environment:process:default
+  option_name: LogFile
+  value: /var/log/nginx
