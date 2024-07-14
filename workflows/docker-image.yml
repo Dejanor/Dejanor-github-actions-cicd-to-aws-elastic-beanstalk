@@ -1,0 +1,47 @@
+name: Docker Image CI
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Create Eb application with terraform"]
+    types:
+      - completed
+env:
+  namespace: 'janortop5'
+  repository: 'winichfarms-website'
+  image_tag: 'latest'
+  registry: 'docker.io'
+  # DB_DATABASE: ${{ secrets.DB_DATABASE }}
+  # DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest # ${{matrix.os}}
+#     strategy:
+#       matrix:
+#         os: [ubuntu-latest, windows-latest, macOS-latest]        
+    steps:
+    - name: git checkout   
+      uses: actions/checkout@v3    
+    - name: Set up Image build
+      run: |
+        echo '${{ secrets.MY_ENV_FILE }}' > .env.ci
+    - name: Build & push Docker image
+      uses: mr-smithers-excellent/docker-build-push@v6
+      with:
+        image: $namespace/$repository
+        tags: $image_tag
+#       tags: $image_tag, latest
+        registry: $registry
+        dockerfile: Dockerfile
+        directory: .
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+  
+
+
+
+
+
+        
