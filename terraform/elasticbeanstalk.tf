@@ -34,11 +34,10 @@ resource "aws_elastic_beanstalk_environment" "environment" {
     value     = module.iam.instance_profile_name
   }
 
-  # You may want to add more settings here, such as:
   setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "EnvironmentType"
-    value     = "SingleInstance"  # or "LoadBalanced" if you need a load balancer
+    value     = "SingleInstance"
   }
 
   setting {
@@ -51,6 +50,37 @@ resource "aws_elastic_beanstalk_environment" "environment" {
     namespace = "aws:autoscaling:asg"
     name      = "MaxSize"
     value     = "2"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:healthreporting:system"
+    name      = "SystemType"
+    value     = "enhanced"
+  }
+
+  setting {
+    namespace = "aws:ec2:instances"
+    name      = "InstanceTypes"
+    value     = "t3.micro,t3.small"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:environment"
+    name      = "ServiceRole"
+    value     = module.iam.service_role_name
+  }
+
+  setting {
+    namespace = "aws:ec2:vpc"
+    name      = "AssociatePublicIpAddress"
+    value     = "true"
+  }
+
+  # Add a wait condition
+  setting {
+    namespace = "aws:elasticbeanstalk:command"
+    name      = "Timeout"
+    value     = "1800"  # 30 minutes in seconds
   }
 }
 
@@ -77,7 +107,6 @@ resource "aws_elastic_beanstalk_environment" "staging-environment" {
     value     = module.iam.instance_profile_name
   }
 
-  # Repeat any additional settings from the production environment
   setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "EnvironmentType"
@@ -94,6 +123,37 @@ resource "aws_elastic_beanstalk_environment" "staging-environment" {
     namespace = "aws:autoscaling:asg"
     name      = "MaxSize"
     value     = "2"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:healthreporting:system"
+    name      = "SystemType"
+    value     = "enhanced"
+  }
+
+  setting {
+    namespace = "aws:ec2:instances"
+    name      = "InstanceTypes"
+    value     = "t3.micro,t3.small"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:environment"
+    name      = "ServiceRole"
+    value     = module.iam.service_role_name
+  }
+
+  setting {
+    namespace = "aws:ec2:vpc"
+    name      = "AssociatePublicIpAddress"
+    value     = "true"
+  }
+
+  # Add a wait condition
+  setting {
+    namespace = "aws:elasticbeanstalk:command"
+    name      = "Timeout"
+    value     = "1800"  # 30 minutes in seconds
   }
 }
 
