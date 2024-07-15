@@ -1,7 +1,8 @@
-FROM ubuntu
+FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Update and install basic dependencies
 RUN apt-get update && apt-get install -y \
     apache2 \
     wget \
@@ -13,15 +14,29 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# Add PHP repository and update
 RUN add-apt-repository ppa:ondrej/php && apt-get update
 
+# Install PHP and other required packages
 RUN apt-get install -y \
-    libapache2-mod-php \
-    php php-common php-xml php-gd \
-    php-opcache php-mbstring php-tokenizer \
-    php-json php-bcmath php-zip unzip \
-    curl php-curl zip php-mysql \
-    vim git \
+    libapache2-mod-php8.1 \
+    php8.1 \
+    php8.1-common \
+    php8.1-xml \
+    php8.1-gd \
+    php8.1-opcache \
+    php8.1-mbstring \
+    php8.1-tokenizer \
+    php8.1-json \
+    php8.1-bcmath \
+    php8.1-zip \
+    unzip \
+    curl \
+    php8.1-curl \
+    zip \
+    php8.1-mysql \
+    vim \
+    git \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
