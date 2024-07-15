@@ -30,11 +30,15 @@ RUN apt-get install -y \
     php-json \
     php-bcmath \
     php-zip \
+    php-curl \
+    php-mysql \
+    php-cli \
+    php-fpm \
+    php-intl \
+    php-soap \
     unzip \
     curl \
-    php-curl \
     zip \
-    php-mysql \
     vim \
     git \
     && apt-get clean \
@@ -57,7 +61,9 @@ RUN curl -sS https://getcomposer.org/installer | php \
 WORKDIR /var/www/html/laravel-realworld-example-app/
 
 RUN update-alternatives --set php /usr/bin/php8.1
-RUN composer create-project
+
+# Run composer with --ignore-platform-reqs flag
+RUN composer create-project --ignore-platform-reqs
 
 COPY ./web.php /var/www/html/laravel-realworld-example-app/routes/web.php
 COPY ./laravel.conf /etc/apache2/sites-available/laravel.conf
