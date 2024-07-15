@@ -26,15 +26,15 @@ RUN apt-get install -y \
     php8.1-gd \
     php8.1-opcache \
     php8.1-mbstring \
-    php8.1-tokenizer \
-    php8.1-json \
-    php8.1-bcmath \
-    php8.1-zip \
+    php-tokenizer \
+    php-json \
+    php-bcmath \
+    php-zip \
     unzip \
     curl \
-    php8.1-curl \
+    php-curl \
     zip \
-    php8.1-mysql \
+    php-mysql \
     vim \
     git \
     && apt-get clean \
