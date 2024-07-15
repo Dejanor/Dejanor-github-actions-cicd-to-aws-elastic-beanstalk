@@ -8,7 +8,7 @@ on:
       #- completed
 env:
   namespace: 'janortop5'
-  repository: 'winichfarms-website'
+  repository: 'laravel'
   image_tag: 'latest'
   registry: 'docker.io'
   # DB_DATABASE: ${{ secrets.DB_DATABASE }}

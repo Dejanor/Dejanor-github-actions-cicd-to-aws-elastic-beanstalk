@@ -1,17 +1,3 @@
-
-variable "instance_profile_name" {
-  description = "Name of the IAM instance profile"
-  type        = string
-  default     = "elasticbeanstalk-instance-profile"
-}
-
-variable "service_role_name" {
-  description = "Name of the IAM service role"
-  type        = string
-  default     = "elasticbeanstalk-service-role"
-}
-
-
 variable "kms_master_key_id" {
   default = ""
 }
