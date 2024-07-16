@@ -1,36 +1,29 @@
 branch-defaults:
   main:
     environment: laravel-environment
-    group_suffix: null
+
+deploy:
+  artifact: Dockerrun.aws.json
+
+environment-defaults:
+  laravel-environment:
+    branch: null
+    repository: null
 
 global:
   application_name: laravel-realworld-example-app
-  branch: null
-  default_ec2_keyname: laravel-realworld-example-app
+  default_ec2_keyname: laravel-readlworld-example-app
   default_platform: Docker running on 64bit Amazon Linux 2
   default_region: eu-west-2
   include_git_submodules: true
-  instance_profile: elasticbeanstalk-instance-profile
-  platform_name: Docker running on 64bit Amazon Linux 2
+  instance_profile: null
+  platform_name: null
   platform_version: null
   profile: eb-cli
-  repository: null
   sc: git
   workspace_type: Application
 
-deploy:
-  artifact: docker-compose.yml
-
 option_settings:
-  - namespace: aws:elasticbeanstalk:environment
-    option_name: EnvironmentType
-    value: SingleInstance
-  - namespace: aws:autoscaling:asg
-    option_name: MinSize
-    value: "1"
-  - namespace: aws:autoscaling:asg
-    option_name: MaxSize
-    value: "1"
   - namespace: aws:elasticbeanstalk:environment:process:default
     option_name: HealthCheckPath
     value: "/"
@@ -40,8 +33,3 @@ option_settings:
   - namespace: aws:elasticbeanstalk:environment:process:default
     option_name: LogFile
     value: /var/log/apache2/access.log
-
-environment-defaults:
-  laravel-environment:
-    branch: null
-    repository: null
