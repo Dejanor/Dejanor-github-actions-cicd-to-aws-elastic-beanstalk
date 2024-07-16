@@ -1,40 +1,47 @@
 branch-defaults:
   main:
-    environment: winichfarms-website
-deploy:
-  artifact: docker-compose.yml
-environment-defaults:
-  Winichfarms-website-environment:
-    branch: null
-    repository: null
-  winichfarms:
-    branch: null
-    repository: null
-  winichfarms-environment:
-    branch: null
-    repository: null
-  winichfarms-website:
-    branch: null
-    repository: null
-  winichfarms-website-environment:
-    branch: null
-    repository: null
-  winichwebsite:
-    branch: null
-    repository: null
+    environment: laravel-environment
+    group_suffix: null
+
 global:
-  application_name: winichfarms website
-  default_ec2_keyname: emmanuel-winich
-  default_platform: Docker
+  application_name: laravel-realworld-example-app
+  branch: null
+  default_ec2_keyname: laravel-realworld-example-app
+  default_platform: Docker running on 64bit Amazon Linux 2
   default_region: eu-west-2
   include_git_submodules: true
-  instance_profile: null
-  platform_name: null
+  instance_profile: elasticbeanstalk-instance-profile
+  platform_name: Docker running on 64bit Amazon Linux 2
   platform_version: null
   profile: eb-cli
+  repository: null
   sc: git
   workspace_type: Application
+
+deploy:
+  artifact: docker-compose.yml
+
 option_settings:
-- namespace: aws:elasticbeanstalk:environment:process:default
-  option_name: LogFile
-  value: /var/log/nginx
+  - namespace: aws:elasticbeanstalk:environment
+    option_name: EnvironmentType
+    value: SingleInstance
+  - namespace: aws:autoscaling:asg
+    option_name: MinSize
+    value: "1"
+  - namespace: aws:autoscaling:asg
+    option_name: MaxSize
+    value: "1"
+  - namespace: aws:elasticbeanstalk:environment:process:default
+    option_name: HealthCheckPath
+    value: "/"
+  - namespace: aws:elasticbeanstalk:environment:process:default
+    option_name: Port
+    value: "80"
+  - namespace: aws:elasticbeanstalk:environment:process:default
+    option_name: LogFile
+    value: /var/log/apache2/access.log
+
+environment-defaults:
+  laravel-environment:
+    branch: null
+    repository: null
