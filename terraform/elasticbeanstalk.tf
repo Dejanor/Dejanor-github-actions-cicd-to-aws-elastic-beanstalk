@@ -14,7 +14,7 @@ resource "aws_elastic_beanstalk_application" "application" {
 resource "aws_elastic_beanstalk_environment" "environment" {
   name                = var.eb-environment-name
   application         = aws_elastic_beanstalk_application.application.name
-  solution_stack_name = "64bit Amazon Linux 2 v5.8.0 running Docker"
+  solution_stack_name = "64bit Amazon Linux 2 v3.83 running Docker"
 
   setting {
     namespace = "aws:ec2:vpc"
@@ -76,7 +76,7 @@ resource "aws_elastic_beanstalk_environment" "environment" {
 resource "aws_elastic_beanstalk_environment" "staging-environment" {
   name                = var.eb-staging-environment-name
   application         = aws_elastic_beanstalk_application.application.name
-  solution_stack_name = "64bit Amazon Linux 2 v5.8.0 running Docker"
+  solution_stack_name = "64bit Amazon Linux 2 v3.8.3 running Docker"
 
   setting {
     namespace = "aws:ec2:vpc"
