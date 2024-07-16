@@ -25,7 +25,7 @@ resource "aws_elastic_beanstalk_environment" "environment" {
   setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
-    value     = module.vpc.subnet_id
+    value     = module.vpc.private_subnet_id 
   }
 
   setting {
@@ -97,7 +97,7 @@ resource "aws_elastic_beanstalk_environment" "staging-environment" {
   setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
-    value     = module.vpc.subnet_id
+    value     = module.vpc.private_subnet_id  
   }
 
   setting {
