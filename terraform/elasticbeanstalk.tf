@@ -14,7 +14,7 @@ resource "aws_elastic_beanstalk_application" "application" {
 resource "aws_elastic_beanstalk_environment" "environment" {
   name                = var.eb-environment-name
   application         = aws_elastic_beanstalk_application.application.name
-  solution_stack_name = "64bit Amazon Linux 2023 v4.3.4 running Docker"
+  solution_stack_name = "64bit Amazon Linux 2 v3.5.9 running Docker"
 
   setting {
     namespace = "aws:ec2:vpc"
@@ -37,7 +37,7 @@ resource "aws_elastic_beanstalk_environment" "environment" {
   setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "EnvironmentType"
-    value     = "SingleInstance"
+    value     = "LoadBalanced"
   }
 
   setting {
@@ -76,84 +76,39 @@ resource "aws_elastic_beanstalk_environment" "environment" {
     value     = "true"
   }
 
-  # Add a wait condition
   setting {
     namespace = "aws:elasticbeanstalk:command"
     name      = "Timeout"
-    value     = "1800"  # 30 minutes in seconds
-  }
-}
-
-resource "aws_elastic_beanstalk_environment" "staging-environment" {
-  name                = var.eb-staging-environment-name
-  application         = aws_elastic_beanstalk_application.application.name
-  solution_stack_name = "64bit Amazon Linux 2023 v4.3.4 running Docker"
-
-  setting {
-    namespace = "aws:ec2:vpc"
-    name      = "VPCId"
-    value     = module.vpc.vpc_id
+    value     = "1800"
   }
 
   setting {
-    namespace = "aws:ec2:vpc"
-    name      = "Subnets"
-    value     = module.vpc.subnet_id
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "STACK_NAME"
+    value     = "64bit Amazon Linux 2 v3.5.9 running Docker"
   }
 
   setting {
-    namespace = "aws:autoscaling:launchconfiguration"
-    name      = "IamInstanceProfile"
-    value     = module.iam.instance_profile_name
-  }
-
-  setting {
-    namespace = "aws:elasticbeanstalk:environment"
-    name      = "EnvironmentType"
-    value     = "SingleInstance"
-  }
-
-  setting {
-    namespace = "aws:autoscaling:asg"
-    name      = "MinSize"
-    value     = "1"
-  }
-
-  setting {
-    namespace = "aws:autoscaling:asg"
-    name      = "MaxSize"
-    value     = "2"
-  }
-
-  setting {
-    namespace = "aws:elasticbeanstalk:healthreporting:system"
-    name      = "SystemType"
-    value     = "enhanced"
-  }
-
-  setting {
-    namespace = "aws:ec2:instances"
-    name      = "InstanceTypes"
-    value     = "t3.micro,t3.small"
-  }
-
-  setting {
-    namespace = "aws:elasticbeanstalk:environment"
-    name      = "ServiceRole"
-    value     = module.iam.service_role_name
-  }
-
-  setting {
-    namespace = "aws:ec2:vpc"
-    name      = "AssociatePublicIpAddress"
+    namespace = "aws:elasticbeanstalk:managedactions"
+    name      = "ManagedActionsEnabled"
     value     = "true"
   }
 
-  # Add a wait condition
   setting {
-    namespace = "aws:elasticbeanstalk:command"
-    name      = "Timeout"
-    value     = "1800"  # 30 minutes in seconds
+    namespace = "aws:elasticbeanstalk:managedactions"
+    name      = "PreferredStartTime"
+    value     = "Tue:10:00"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:managedactions:platformupdate"
+    name      = "UpdateLevel"
+    value     = "minor"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:managedactions:platformupdate"
+    name      = "InstanceRefreshEnabled"
+    value     = "true"
   }
 }
-
