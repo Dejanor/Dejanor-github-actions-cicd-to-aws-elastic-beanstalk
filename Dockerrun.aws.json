@@ -10,5 +10,19 @@
         "HostPort": "80"
       }
     ],
-    "Logging": "/var/log/nginx"
+    "Volumes": [
+      {
+        "HostDirectory": "/var/log/apache2",
+        "ContainerDirectory": "/var/log/apache2"
+      },
+      {
+        "HostDirectory": "/etc/apache2/sites-available",
+        "ContainerDirectory": "/etc/apache2/sites-available"
+      },
+      {
+        "HostDirectory": "/var/www/html/laravel-realworld-example-app",
+        "ContainerDirectory": "/var/www/html/laravel-realworld-example-app"
+      }
+    ],
+    "Logging": "/var/log/apache2"
 }
