@@ -19,7 +19,7 @@ global:
   workspace_type: Application
 
 deploy:
-  artifact: docker-compose.yml
+  artifact: Dockerrun.aws.json
 
 option_settings:
   - namespace: aws:elasticbeanstalk:environment
